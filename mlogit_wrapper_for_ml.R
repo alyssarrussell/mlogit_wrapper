@@ -17,9 +17,7 @@ mlogit_market <- function(data, # must have variables choice, id, product_ids, m
                           product.char.vars = NULL, # the ones without random coefficients, default NULL
                           R = 100,
                           reflevel = 'product1',
-                          heterosc = FALSE,
                           halton = NA,
-                          panel = FALSE,
                           seed = 1){
 
   # change column order
@@ -55,11 +53,9 @@ mlogit_market <- function(data, # must have variables choice, id, product_ids, m
   m <- mlogit(formula = formula,
               data = data_dfidx,
               reflevel = reflevel,
-              heterosc = heterosc,
               rpar = rpar,
               R = R,
               halton = halton,
-              panel = panel,
               seed = seed)
 
   # estimated coefficients
