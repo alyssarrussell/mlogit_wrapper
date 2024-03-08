@@ -24,6 +24,16 @@ Arguments:
 
 **product.char.vars = NULL** A character vector with the names of the product characteristics _without_ random coefficients. These are variables that vary across products.
 
+**R = 100** See mlogit documentation.
+
+**reflevel = 'product1'** See mlogit documentation.
+
+**halton = NA** See mlogit documentation.
+
+**seed = 1** See mlogit documentation.
+
+There are additional mlogit arguements that can be used, such as **heterosc** and **panel**, but I have not experimented with these.
+
 Value:
 
 mlogit_market() returns a list of length two. The first item is the mlogit model result with biased estimates of the means of the random coefficients, but correct estimates of the standard deviation of the random coefficients and any other coefficients on product characteristics or demographic variables, if included. The second item is the second-stage regression model result with the bias-corrected estimates of the means of the random coefficients and the coefficient estimates of any other variables that vary at the product-market level, such as price.
