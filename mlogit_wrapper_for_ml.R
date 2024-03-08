@@ -114,24 +114,3 @@ m
 
   return(list(m, m_delta))
 }
-
-data <- fread(
-  input = "sample_data_2.csv"
-)
-data$prices <- -data$prices
-
-data_params <- fread(
-  input = "sample_data_2_params.csv"
-)
-
-data[choice == T, .N]
-
-test <- mlogit_market(data, # must have variables choice, id, product_ids, market_ids
-              random_coefs = c("x_rc"), # variables with random coefficients                    #, "prices"
-              delta = c("x_rc", "prices"), # variables that vary at product-market level
-              demand_instruments = c("demand_instruments0", "demand_instruments1", "demand_instruments2"), # if price is assumed exogenous, then put prices
-              demographic.vars = c("z1", "z2", "z3"), # demographic variables, default NULL
-              rpar = c(x_rc = 'n'))    #, prices = 'ln'
-
-summary(test[[1]])
-summary(test[[2]])
