@@ -2,6 +2,8 @@
 
 *Work in progress*. 
 
+The function is contained in mlogit_wrapper_for_ml.R. Simply copy the code into your own script to use.
+
 Description: 
 
 When including constants and product characteristics with random coefficients that both vary at the product-market level in the model, the model cannot be estimated due to perfect collinearity. The solution is to drop a product-market constant for each additional product characteristic with a random coefficient that is added. Consequently, the constant that is dropped will not be estimated. This causes the means of the random coefficients to be estimated with bias. The correct estimates can be obtained by adjusting the estimated product-market constants using the observed values of the product characteristics and the (biased) estimated of the means of the random coefficients, and then running a second-stage linear regression with the adjusted product-market constants on the LHS and the observed product characteristics on the RHS. The coefficient estimates on the product characteristics of the second-stage are the bias-corrected estimates of the means of the random coefficients.
