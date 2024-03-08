@@ -1,8 +1,8 @@
 # An mlogit wrapper function that allows for mixed logit estimation with market-level variation.
 
-Description:
+*Work in progress*. 
 
-Explain the issue that occurs with mlogit and how I fix it.
+Description: When including constants and product characteristics with random coefficients that both vary at the product-market level in the model, the model cannot be estimated due to perfect collinearity. The solution is to drop a product-market constant for each additional product characteristic with a random coefficient that is added. Consequently, the constant that is dropped will not be estimated. This causes the means of the random coefficients to be estimated with bias. The correct estimates can be obtained by adjusting the estimated product-market constants using the observed values of the product characteristics and the (biased) estimated of the means of the random coefficients, and then running a second-stage linear regression with the adjusted product-market constants on the LHS and the observed product characteristics on the RHS. The coefficient estimates on the product characteristics of the second-stage are the bias-corrected estimates of the means of the random coefficients.
 
 Arguments:
 
@@ -22,7 +22,7 @@ Arguments:
 
 Value:
 
-mlogit_market() returns a list of length two. The first item is the mlogit model result with biased estimates of the means of the random coefficients. The second item is the second-stage delta regression model result with the bias-corrected estimates of the means of the random coefficients and the coefficient estimates of any other variables contained in **delta**, such as price.
+mlogit_market() returns a list of length two. The first item is the mlogit model result with biased estimates of the means of the random coefficients, but correct estimates of the standard deviation of the random coefficients and any other coefficients on product characteristics or demographic variables, if included. The second item is the second-stage regression model result with the bias-corrected estimates of the means of the random coefficients and the coefficient estimates of any other variables that vary at the product-market level, such as price.
 
 Examples:
 
