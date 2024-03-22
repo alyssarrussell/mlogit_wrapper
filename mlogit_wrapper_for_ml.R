@@ -47,7 +47,7 @@ mlogit_market <- function(data, # must have variables choice, id, product_ids, m
   # mlogit formula
   formula <- as.formula(paste("choice~", paste(random_coefs, collapse = '+'), "+", paste(product.char.vars, collapse = '+'),
                               "+", paste(market1_ids, collapse = "+"),
-                              "| 0 + market_ids +", paste(demographic.vars, collapse = "+")))
+                              "| 0 + market_ids", ifelse(is.null(demographic.vars), "", paste("+", paste(demographic.vars, collapse = "+")))))
 
   # mlogit model
   m <- mlogit(formula = formula,
@@ -110,3 +110,37 @@ m
 
   return(list(m, m_delta))
 }
+
+# Example 1 ----
+
+data <- fread(input = "sample_data_1.csv")
+
+results <- mlogit_market(data,
+                         random_coefs = c("x_rc"),
+                         delta = c("x_rc", "prices"),
+                         demand_instruments = c("demand_instruments0", "demand_instruments1", "demand_instruments2"),
+                         demographic.vars = c("z1", "z2", "z3"),
+                         rpar = c(x_rc = 'n'))
+
+results
+
+# Example 2 ----
+
+data <- fread(input = "sample_data_2.csv")
+data$prices <- -data$prices
+data$x_rc <- -data$x_rc
+
+test <- mlogit_market(data, # must have variables choice, id, product_ids, market_ids
+              random_coefs = c("x_rc", "prices"), # variables with random coefficients
+              delta = c("x_rc", "prices"), # variables that vary at product-market level
+              demand_instruments = c("demand_instruments0", "demand_instruments1", "demand_instruments2"), # if price is assumed exogenous, then put prices
+              demographic.vars = c("z1", "z2", "z3"), # demographic variables, default NULL
+              rpar = c(x_rc = 'n', prices = 'ln'))
+
+summary(test[[1]])
+summary(test[[2]])
+
+
+
+
+
