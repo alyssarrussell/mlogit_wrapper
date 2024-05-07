@@ -94,7 +94,7 @@ mlogit_market <- function(data, # must have variables choice, id, product_ids, m
     norm_names[iter] <- new_col_name
     random_coefs_norm <- est_delta[, ..norm_names]
   }
-m
+
   # adjust market FE for omitted dummy
   delta_adjustments <- as.numeric(est_coefs %>% select(all_of(delta_rc)))
   random_coefs_adjusted <- t(data.frame(t(random_coefs_norm) * delta_adjustments))
